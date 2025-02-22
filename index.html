@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>월세 vs 전세 계산기</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 500px; margin: auto; }
+        label, input { display: block; margin-bottom: 10px; }
+        input { width: 100%; padding: 8px; }
+        .result { margin-top: 20px; padding: 10px; background: #f8f8f8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>월세 vs 전세 비교 계산기</h2>
+        <label>전세 보증금 (만원):</label>
+        <input type="number" id="jeonseAmount" value="30000">
+        
+        <label>전세 대출 금액 (만원):</label>
+        <input type="number" id="loanAmount" value="20000">
+        
+        <label>대출 이자율 (%):</label>
+        <input type="number" id="loanRate" value="4">
+        
+        <label>월세 보증금 (만원):</label>
+        <input type="number" id="monthlyDeposit" value="5000">
+        
+        <label>월세 금액 (만원):</label>
+        <input type="number" id="monthlyRent" value="80">
+        
+        <label>보증금 투자 예상 수익률 (%):</label>
+        <input type="number" id="investmentRate" value="6">
+        
+        <button onclick="calculateAndRedirect()">비교하기</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateAndRedirect() {
+            calculate();
+            setTimeout(function() {
+                window.open('https://smartstore.naver.com/powertoolkorea/products/5793500171?nl-query=%EA%B3%A0%EC%A7%80%EA%B0%80%EC%9C%84+s280&nl-ts-pid=iJCI%2FdqptbNssapLQwwssssst%2Fh-010388&NaPm=ct%3Dm7flp17c%7Cci%3D7e5c8062a8faa03d979042ffcda05ee6f6e3d2f9%7Ctr%3Dsls%7Csn%3D4139928%7Chk%3Da9ed7cb50d0e3203dd02033278f138291c457b2d', '_blank');
+            }, 2000);
+        }
+
+        function calculate() {
+            let jeonse = Number(document.getElementById('jeonseAmount').value);
+            let loan = Number(document.getElementById('loanAmount').value);
+            let loanRate = Number(document.getElementById('loanRate').value) / 100;
+            let monthlyDeposit = Number(document.getElementById('monthlyDeposit').value);
+            let monthlyRent = Number(document.getElementById('monthlyRent').value);
+            let investmentRate = Number(document.getElementById('investmentRate').value) / 100;
+            
+            let loanInterestPerMonth = (loan * loanRate) / 12;
+            let investableAmount = jeonse - loan;
+            let investmentIncomePerMonth = (investableAmount * investmentRate) / 12;
+            let totalMonthlyRent5Y = (monthlyRent * 12) * 5;
+            let totalMonthlyRent10Y = (monthlyRent * 12) * 10;
+            let totalJeonseCost5Y = (loanInterestPerMonth - investmentIncomePerMonth) * 12 * 5;
+            let totalJeonseCost10Y = (loanInterestPerMonth - investmentIncomePerMonth) * 12 * 10;
+            
+            document.getElementById('result').innerHTML = `
+                <h3>비교 결과</h3>
+                <p><strong>월세 거주 비용:</strong></p>
+                <p>5년: ${totalMonthlyRent5Y.toLocaleString()} 만원</p>
+                <p>10년: ${totalMonthlyRent10Y.toLocaleString()} 만원</p>
+                <hr>
+                <p><strong>전세 거주 비용:</strong></p>
+                <p>5년: ${totalJeonseCost5Y.toLocaleString()} 만원</p>
+                <p>10년: ${totalJeonseCost10Y.toLocaleString()} 만원</p>
+                <hr>
+                <p><strong>비교 결과:</strong> ${totalJeonseCost5Y < totalMonthlyRent5Y ? '전세가 유리함' : '월세가 유리함'} (5년 기준)</p>
+                <p><strong>비교 결과:</strong> ${totalJeonseCost10Y < totalMonthlyRent10Y ? '전세가 유리함' : '월세가 유리함'} (10년 기준)</p>
+            `;
+        }
+    </script>
+</body>
+</html>
