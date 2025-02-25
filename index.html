@@ -50,31 +50,4 @@
 
         function calculate() {
             let jeonse = Number(document.getElementById('jeonseAmount').value);
-            let loan = Number(document.getElementById('loanAmount').value);
-            let loanRate = Number(document.getElementById('loanRate').value) / 100;
-            let monthlyDeposit = Number(document.getElementById('monthlyDeposit').value);
-            let monthlyRent = Number(document.getElementById('monthlyRent').value);
-            let investmentRate = Number(document.getElementById('investmentRate').value) / 100;
-            
-            let loanInterestPerMonth = (loan * loanRate) / 12;
-            let investableAmount = jeonse - loan;
-            let investmentIncomePerMonth = (investableAmount * investmentRate) / 12;
-            let totalMonthlyRent5Y = (monthlyRent * 12) * 5;
-            let totalMonthlyRent10Y = (monthlyRent * 12) * 10;
-            let totalJeonseCost5Y = (loanInterestPerMonth - investmentIncomePerMonth) * 12 * 5;
-            let totalJeonseCost10Y = (loanInterestPerMonth - investmentIncomePerMonth) * 12 * 10;
-            
-            document.getElementById('result').innerHTML = `
-                <h3>비교 결과</h3>
-                <p><strong>월세 거주 비용:</strong></p>
-                <p>5년: ${totalMonthlyRent5Y.toLocaleString()} 만원</p>
-                <p>10년: ${totalMonthlyRent10Y.toLocaleString()} 만원</p>
-                <hr>
-                <p><strong>전세 거주 비용:</strong></p>
-                <p>5년: ${totalJeonseCost5Y.toLocaleString()} 만원</p>
-                <p>10년: ${totalJeonseCost10Y.toLocaleString()} 만원</p>
-            `;
-        }
-    </script>
-</body>
-</html>
+            let loan = Number(document.getElementById('loanAmoun
